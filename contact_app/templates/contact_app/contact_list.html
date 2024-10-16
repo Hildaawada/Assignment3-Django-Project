@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+        }
+        .table-container {
+            width: 60%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+        a:hover {
+            color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h1>Contact List</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.address }}</td>
+                    <td>
+                        <a href="{% url 'edit_contact' contact.id %}">Edit</a> | 
+                        <a href="{% url 'delete_contact' contact.id %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="/">Add New Contact</a>
+    </div>
+</body>
+</html>

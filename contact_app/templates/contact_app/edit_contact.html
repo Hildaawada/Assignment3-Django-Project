@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Contact</title>
+    <style>
+        /* You can style this similar to your add_contact.html */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+        }
+        .form-container {
+            width: 50%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Contact</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update Contact">
+        </form>
+    </div>
+</body>
+</html>
