@@ -30,10 +30,10 @@ def edit_professional(request, id):
         form = ProfessionalForm(request.POST, instance=professional)
         if form.is_valid():
             form.save()
-            return redirect('success_url')  # Redirect after POST
+            return redirect('contact_list')  # Redirect after POST
     else:
         form = ProfessionalForm(instance=professional)
-    return render(request, 'edit_professional.html', {'form': form})
+    return render(request, 'contact_app/edit_professional.html', {'form': form})
 
 def delete_professional(request, id):
     professional = get_object_or_404(Professional, pk=id)
