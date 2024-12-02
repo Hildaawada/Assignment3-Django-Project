@@ -1,7 +1,10 @@
 from django import forms
-from .models import Contact
+from .models import Professional
 
-class ContactForm(forms.ModelForm):
+class ProfessionalForm(forms.ModelForm):
     class Meta:
-        model = Contact
-        fields = ['name', 'email', 'phone', 'address']
+        model = Professional
+        fields = ['first_name', 'last_name', 'email', 'phone', 'state', 'expertise', 'service_cost_per_hour']
+        widgets = {
+            'expertise': forms.Select(choices=Professional.EXPERTISE_CHOICES)
+        }

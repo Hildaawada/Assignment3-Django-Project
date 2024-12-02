@@ -1,40 +1,43 @@
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from .forms import ContactForm
-from .models import Contact
+from .forms import ProfessionalForm
+from .models import Professional
 from django.shortcuts import get_object_or_404
 
-def add_contact(request):
+from django.shortcuts import render, redirect
+from .forms import ProfessionalForm
+
+def add_professional(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ProfessionalForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('contact_list')
+            return redirect('success_url')  # Redirect after POST
     else:
-        form = ContactForm()
-    return render(request, 'contact_app/add_contact.html', {'form': form})
+        form = ProfessionalForm()
+    return render(request, 'contact_app/add_professional.html', {'form': form})
 
 def contact_list(request):
-    contacts = Contact.objects.all()
+    contacts = Professional.objects.all()
     return render(request, 'contact_app/contact_list.html', {'contacts': contacts})
 
 
 
-def edit_contact(request, id):
-    contact = get_object_or_404(Contact, id=id)
+def edit_professional(request, id):
+    professional = Professional.objects.get(pk=id)
     if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
+        form = ProfessionalForm(request.POST, instance=professional)
         if form.is_valid():
             form.save()
-            return redirect('contact_list')
+            return redirect('contact_list')  # Redirect after POST
     else:
-        form = ContactForm(instance=contact)
-    return render(request, 'contact_app/edit_contact.html', {'form': form, 'contact': contact})
+        form = ProfessionalForm(instance=professional)
+    return render(request, 'contact_app/edit_professional.html', {'form': form})
 
-def delete_contact(request, id):
-    contact = get_object_or_404(Contact, id=id)
-    if request.method == 'POST':
-        contact.delete()
-        return redirect('contact_list')
-    return render(request, 'contact_app/delete_contact.html', {'contact': contact})
+def delete_professional(request, id):
+    professional = get_object_or_404(Professional, pk=id)
+    if request.method == 'POST':  # Ensures that the deletion is confirmed via POST request
+        professional.delete()
+        return redirect('professionals_list_url')  # Redirect to the list of professionals or a success page
+    return render(request, 'confirm_delete.html', {'professional': professional})
