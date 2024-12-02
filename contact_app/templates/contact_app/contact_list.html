@@ -41,11 +41,33 @@
         a:hover {
             color: #45a049;
         }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <div class="table-container">
         <h1>Contact List</h1>
+
+        <!-- Search Button -->
+        <div class="button-container">
+            <a href="{% url 'search_query' %}" class="btn">Search</a>
+        </div>
+
         <table>
             <tr>
                 <th>Name</th>
@@ -67,7 +89,10 @@
                 </tr>
             {% endfor %}
         </table>
-        <a href="/">Add New Contact</a>
+
+        <div class="button-container">
+            <a href="/" class="btn">Add New Contact</a>
+        </div>
     </div>
 </body>
 </html>

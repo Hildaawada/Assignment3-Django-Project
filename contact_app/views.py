@@ -4,10 +4,19 @@ from django.shortcuts import render, redirect
 from .forms import ProfessionalForm
 from .models import Professional
 from django.shortcuts import get_object_or_404
+from .nlp_utils import find_recommendations
 
-from django.shortcuts import render, redirect
-from .forms import ProfessionalForm
 
+
+def search_query(request):
+    query = request.GET.get('query', '')
+    recommendations = []
+
+    if query:
+        contacts = Professional.objects.all().values()  # Fetch all profiles or contacts
+        recommendations = find_recommendations(query, list(contacts))  # Your recommendation logic
+
+    return render(request, 'contact_app/search_query.html', {'query': query, 'recommendations': recommendations})
 def add_professional(request):
     if request.method == 'POST':
         form = ProfessionalForm(request.POST)
