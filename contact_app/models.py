@@ -17,6 +17,7 @@ class Professional(models.Model):
     state = models.CharField(max_length=100)
     expertise = models.CharField(max_length=2, choices=EXPERTISE_CHOICES, default='JR')
     service_cost_per_hour = models.DecimalField(max_digits=8, decimal_places=2)
+    job_title = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

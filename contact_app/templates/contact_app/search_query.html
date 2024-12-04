@@ -173,9 +173,9 @@
                                 <div>
                                     <strong>{{ rec.job_title }}</strong> - <span>{{ rec.state }}</span>
                                     <br>
-                                    <span>${{ rec.hourly_rate }}/hr</span>
+                                    <span>${{ rec.service_cost_per_hour }}/hr</span>
                                 </div>
-                                <a href="{% url 'profile_detail' rec.id %}" class="view-details">View Details</a>
+                                <a class="view-details">View Details</a>
                             </li>
                         {% endfor %}
                     </ul>
