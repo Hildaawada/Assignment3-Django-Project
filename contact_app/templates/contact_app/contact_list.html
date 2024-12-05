@@ -86,10 +86,10 @@
             </tr>
             {% for contact in contacts %}
             <tr>
-                <td>{{ contact.name }}</td>
+                <td>{{ contact.first_name}} {{contact.last_name}}</td>
                 <td>{{ contact.email }}</td>
                 <td>{{ contact.phone }}</td>
-                <td>{{ contact.address }}</td>
+                <td>{{ contact.state }}</td>
                 <td>
                     <a href="{% url 'edit_contact' contact.id %}">Edit</a> | 
                     <a href="{% url 'delete_contact' contact.id %}">Delete</a>

@@ -92,6 +92,14 @@
         .view-details:hover {
             color: #45a049;
         }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
         nav {
             background-color: #4CAF50;
             padding: 10px 20px;
@@ -189,7 +197,15 @@
                                     <br>
                                     <span>${{ rec.service_cost_per_hour }}/hr</span>
                                 </div>
-                                <a class="view-details">View Details</a>
+                                <a class="view-details" href="javascript:void(0);" onclick="toggleDetails('{{ rec.id }}')">View Details</a>
+                                <!-- Hidden Details -->
+                                <div class="details" id="details-{{ rec.id }}">
+                                    <p><strong>Full Name:</strong> {{ rec.first_name }} {{rec.last_name}}</p>
+                                    <p><strong>Email:</strong> {{ rec.email }}</p>
+                                    <p><strong>Phone:</strong> {{ rec.phone }}</p>
+                                    <p><strong>Experience:</strong> {{ rec.expertise }}</p>
+                                    <p><strong>Job Title:</strong> {{ rec.job_title }}</p>
+                                </div>
                             </li>
                         {% endfor %}
                     </ul>
@@ -204,6 +220,16 @@
         // Function to show the spinner when the form is submitted
         function showSpinner() {
             document.getElementById("loadingSpinner").style.display = "flex";
+        }
+
+        // Function to toggle the visibility of the "View Details" section
+        function toggleDetails(contactId) {
+            var detailsDiv = document.getElementById('details-' + contactId);
+            if (detailsDiv.style.display === "none" || detailsDiv.style.display === "") {
+                detailsDiv.style.display = "block";  // Show details
+            } else {
+                detailsDiv.style.display = "none";  // Hide details
+            }
         }
     </script>
 </body>
