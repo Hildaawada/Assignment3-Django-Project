@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact List</title>
     <style>
         body {
@@ -23,51 +24,58 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
         }
-        table, th, td {
+        th, td {
             border: 1px solid #ddd;
             padding: 8px;
+            text-align: left;
         }
         th {
             background-color: #f2f2f2;
-            text-align: left;
-            color: #333;
         }
         a {
-            text-decoration: none;
             color: #4CAF50;
+            text-decoration: none;
         }
         a:hover {
-            color: #45a049;
+            text-decoration: underline;
         }
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn {
+        nav {
             background-color: #4CAF50;
-            color: white;
             padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .btn:hover {
-            background-color: #45a049;
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'contact_list' %}">Contact List</a></li>
+            <li><a href="{% url 'add_contact' %}">Add Contact</a></li>
+            <li><a href="{% url 'search_query' %}">Search</a></li>
+        </ul>
+    </nav>
     <div class="table-container">
         <h1>Contact List</h1>
-
-        <!-- Search Button -->
-        <div class="button-container">
-            <a href="{% url 'search_query' %}" class="btn">Search</a>
-        </div>
-
         <table>
             <tr>
                 <th>Name</th>
@@ -77,21 +85,20 @@
                 <th>Actions</th>
             </tr>
             {% for contact in contacts %}
-                <tr>
-                    <td>{{ contact.name }}</td>
-                    <td>{{ contact.email }}</td>
-                    <td>{{ contact.phone }}</td>
-                    <td>{{ contact.address }}</td>
-                    <td>
-                        <a href="{% url 'edit_contact' contact.id %}">Edit</a> | 
-                        <a href="{% url 'delete_contact' contact.id %}">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.address }}</td>
+                <td>
+                    <a href="{% url 'edit_contact' contact.id %}">Edit</a> | 
+                    <a href="{% url 'delete_contact' contact.id %}">Delete</a>
+                </td>
+            </tr>
             {% endfor %}
         </table>
-
-        <div class="button-container">
-            <a href="/" class="btn">Add New Contact</a>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'add_contact' %}" style="color: #4CAF50; font-weight: bold;">Add New Contact</a>
         </div>
     </div>
 </body>

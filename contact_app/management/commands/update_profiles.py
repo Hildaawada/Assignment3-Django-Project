@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Update job titles for existing professionals using a CSV file'
 
     def handle(self, *args, **kwargs):
-        file_path = r"C:\Users\mohdf\Downloads\final_updated_people_random_states.csv"
+        file_path = r"C:\Users\USAID\OneDrive - American University of Beirut\Desktop\final_updated_people_random_states.csv"
         try:
             with open(file_path, mode='r') as file:
                 reader = csv.DictReader(file)

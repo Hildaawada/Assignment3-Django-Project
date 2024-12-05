@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a New Contact</title>
     <style>
         body {
@@ -20,11 +21,6 @@
             text-align: center;
             color: #333;
         }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            color: #555;
-        }
         input {
             width: 100%;
             padding: 8px;
@@ -42,9 +38,40 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        nav {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'contact_list' %}">Contact List</a></li>
+            <li><a href="{% url 'add_contact' %}">Add Contact</a></li>
+            <li><a href="{% url 'search_query' %}">Search</a></li>
+        </ul>
+    </nav>
     <div class="form-container">
         <h1>Create a New Contact</h1>
         <form method="post">
