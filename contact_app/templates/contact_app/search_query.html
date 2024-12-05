@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search for Contacts</title>
     <style>
-        /* General body styling */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
@@ -17,7 +17,6 @@
             min-height: 100vh;
         }
 
-        /* Main container */
         .container {
             width: 100%;
             max-width: 700px;
@@ -27,7 +26,6 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Page title styling */
         h1 {
             text-align: center;
             font-size: 1.8rem;
@@ -36,7 +34,6 @@
             margin-bottom: 20px;
         }
 
-        /* Search input styling */
         input[type="text"] {
             width: 100%;
             padding: 12px;
@@ -45,18 +42,8 @@
             border-radius: 25px;
             font-size: 16px;
             color: #333333;
-            transition: all 0.3s ease;
-            box-shadow: none;
         }
 
-        /* Focus effect for the input */
-        input[type="text"]:focus {
-            outline: none;
-            border: 1px solid #4CAF50;
-            box-shadow: 0px 0px 8px rgba(76, 175, 80, 0.5);
-        }
-
-        /* Submit button styling */
         button {
             background-color: #4CAF50;
             color: white;
@@ -65,22 +52,38 @@
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        /* Hover effect for the button */
-        button:hover {
-            background-color: #45a049;
+        #loading-spinner {
+            display: none;
+            text-align: center;
         }
 
-        /* Results Section */
+        .spinner {
+            margin: 20px auto;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .results {
             margin-top: 30px;
         }
 
         .results h2 {
             font-size: 1.5rem;
-            color: #333333;
             margin-bottom: 15px;
         }
 
@@ -90,69 +93,35 @@
         }
 
         .results li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 15px;
             margin-bottom: 10px;
             background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .results li span {
-            color: #555555;
+        .results li div {
+            max-width: 75%;
         }
 
         .view-details {
             color: #4CAF50;
             text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
+            font-weight: bold;
         }
 
         .view-details:hover {
             color: #45a049;
         }
-
-        /* Responsive design */
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            input[type="text"] {
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-
-            .results li {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .view-details {
-                margin-top: 10px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Page Title -->
         <h1>Search for Contacts</h1>
-
-        <!-- Search Form -->
-        <form method="GET" action="{% url 'search_query' %}">
+        <form id="search-form" method="GET" action="{% url 'search_query' %}">
             <input
                 type="text"
                 name="query"
@@ -162,7 +131,10 @@
             <button type="submit">Find Matchings</button>
         </form>
 
-        <!-- Results Section -->
+        <div id="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+
         <div class="results">
             {% if query %}
                 <h2>Results for: "{{ query }}"</h2>
@@ -175,15 +147,24 @@
                                     <br>
                                     <span>${{ rec.service_cost_per_hour }}/hr</span>
                                 </div>
-                                <a class="view-details">View Details</a>
+                                <a class="view-details" href="#">View Details</a>
                             </li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p style="color: #999;">No matching results found. Try a different query.</p>
+                    <p>No matching results found.</p>
                 {% endif %}
             {% endif %}
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('search-form');
+        const spinner = document.getElementById('loading-spinner');
+
+        form.addEventListener('submit', function () {
+            spinner.style.display = 'block';
+        });
+    </script>
 </body>
 </html>
