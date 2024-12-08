@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
 DEBUG = False
 
 # Use the domain name of your Azure Web App without the protocol or trailing slash
-ALLOWED_HOSTS = ['findyourbuddy-fcbaese7embtf2ad.francecentral-01.azurewebsites.net','findyourbuddy.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
