@@ -13,8 +13,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 # SECRET_KEY should be set via environment variable in production
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
@@ -23,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
 DEBUG = False
 
 # Use the domain name of your Azure Web App without the protocol or trailing slash
-ALLOWED_HOSTS = ['assignment7-hilda-fnceb9gpaebmf9gy.eastus2-01.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['findyourbuddy.azurewebsites.net', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -46,6 +52,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')  # Add Whitenoise middleware
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'contact_project.urls'
 
 TEMPLATES = [
